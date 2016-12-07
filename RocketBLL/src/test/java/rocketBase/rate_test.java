@@ -4,17 +4,28 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class rate_test {
+import exceptions.RateException;
+import rocketDomain.RateDomainModel;
+import java.util.ArrayList;
 
-	//TODO - RocketBLL rate_test
-	//		Check to see if a known credit score returns a known interest rate
-	
-	//TODO - RocketBLL rate_test
-	//		Check to see if a RateException is thrown if there are no rates for a given
-	//		credit score
+public class rate_test 
+{
 	@Test
-	public void test() {
-		assert(1==1);
+	public void RateExceptionTest() throws RateException{
+		ArrayList<RateDomainModel> ALLrates = RateDAL.getAllRates();
+		try
+		{
+			double specificRate = RateBLL.getRate(0);
+		}	
+			catch(RateException e)
+		{
+			throw e;
+		}
 	}
-
+	
+	@Test
+	public void PaymentTest(){
+		double payment = rocketBase.RateBLL.getPayment(300000,0,360,4,true);
+		assertEquals(Double.toString(payment),"1432.25");
+	}
 }
