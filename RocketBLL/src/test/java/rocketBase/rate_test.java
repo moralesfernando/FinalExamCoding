@@ -1,7 +1,7 @@
 package rocketBase;
 
 import static org.junit.Assert.*;
-
+import org.junit.Assert;
 import org.junit.Test;
 
 import exceptions.RateException;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class rate_test 
 {
-	/*@Test
+	@Test
 	public void RateExceptionTest() throws RateException{
 		ArrayList<RateDomainModel> ALLrates = RateDAL.getAllRates();
 		try
@@ -25,8 +25,8 @@ public class rate_test
 	
 	@Test
 	public void PaymentTest(){
-		double payment = rocketBase.RateBLL.getPayment(300000,0,360,4,true);
-		assertEquals(Double.toString(payment),"1432.25");
+		double payment = RateBLL.getPayment(.04/12, 360, 300000, 0, false);
+		Assert.assertEquals(1432.25,payment,1);
 	}
-	*/
+
 }
