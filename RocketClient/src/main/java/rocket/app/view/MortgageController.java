@@ -29,6 +29,9 @@ public class MortgageController
 	
 	@FXML
 	private TextField txtHouseCost;
+	
+	@FXML
+	private TextField txtMortgagePayment;
 
 	@FXML
 	private ComboBox<String> cbTerm;
@@ -44,12 +47,9 @@ public class MortgageController
 
 	@FXML
 	private Label HouseCost;
-	
-	@FXML
-	private Button Payment;
 
 	@FXML
-	private Label Error;
+	private Label Term;
 
 	@FXML
 	private Label MortgagePayment;
