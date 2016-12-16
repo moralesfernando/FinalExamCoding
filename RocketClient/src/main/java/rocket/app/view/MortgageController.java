@@ -1,6 +1,12 @@
 package rocket.app.view;
 
+
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import eNums.eAction;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import rocket.app.MainApp;
@@ -29,12 +35,12 @@ public class MortgageController
 	
 	@FXML
 	private TextField txtHouseCost;
-	
-	@FXML
-	private TextField txtMortgagePayment;
 
 	@FXML
-	private ComboBox cmbTerm;
+	private TextField txtPayement1;
+	
+	@FXML
+	private ComboBox<String> xTerm;
 
 	@FXML
 	private Label lblIncome;
@@ -49,19 +55,23 @@ public class MortgageController
 	private Label lblHouseCost;
 
 	@FXML
-	private Label lblTerm;
+	private Label lblxTerm;
 
 	@FXML
 	private Label lblMortgagePayment;
 	
 	@FXML
-	private Button btnMortgagePayment;
+	private Label lblPayment;
+
+	@FXML
+	private Button btnPayment;
+	
+	@FXML
+	private Label lblError;
 	
 	public void setMainApp(MainApp mainApp)
 	{
 		this.mainApp = mainApp;
-		cmbTerm.getItems().add((Integer)15);
-		cmbTerm.getItems().add((Integer)30);
 	}
 	
 	@FXML
@@ -75,7 +85,7 @@ public class MortgageController
 		lq.setIncome(Double.parseDouble(txtIncome.getText()));
 		lq.setExpenses(Double.parseDouble(txtExpenses.getText()));
 		lq.setiCreditScore(Integer.parseInt(txtCreditScore.getText()));
-		lq.setiTerm(Integer.parseInt(cmbTerm.getSelectionModel().getSelectedItem().toString()));
+		lq.setiTerm(Integer.parseInt(xTerm.getSelectionModel().getSelectedItem().toString()));
 		
 		a.setLoanRequest(lq);
 
@@ -91,9 +101,12 @@ public class MortgageController
 		double maxpmt2 = .36 * lRequest.getIncome()-lRequest.getExpenses();
 		double maxPmt = Math.min(maximumpmt1, maxpmt2);
 		String pmtString = String.format("%1$,.2f", Math.abs(lRequest.getdPayment()));
-		lblMortgagePayment.setText(pmtString);
-		
-		String rateString = String.format("%1$,.2f", Math.abs(lRequest.getdRate()));
-		lblMortgagePayment.setText(Double.toString(specificRate));
+		if (pmt > maxPmt){
+			lblPayment.setText("Error. Payment too high.");
+		}
+		else {
+			
+			lblPayment.setText("Pay"+pmtString+"at a rate of"+ lRequest.getdRate());
+		}
 	}
 }
