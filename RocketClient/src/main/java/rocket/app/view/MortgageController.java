@@ -34,37 +34,34 @@ public class MortgageController
 	private TextField txtMortgagePayment;
 
 	@FXML
-	private ComboBox<String> cbTerm;
+	private ComboBox cmbTerm;
 
 	@FXML
-	private Label Income;
+	private Label lblIncome;
 	
 	@FXML
-	private Label Expenses;
+	private Label lblExpenses;
 	
 	@FXML
-	private Label CreditScore;
+	private Label lblCreditScore;
 
 	@FXML
-	private Label HouseCost;
+	private Label lblHouseCost;
 
 	@FXML
-	private Label Term;
+	private Label lblTerm;
 
 	@FXML
-	private Label MortgagePayment;
-
+	private Label lblMortgagePayment;
+	
 	@FXML
-	private void initialize() 
-	{
-		cbTerm.getItems().add("15");
-		cbTerm.getItems().add("30");
-		cbTerm.getSelectionModel().select("15");
-	}
+	private Button btnMortgagePayment;
 	
 	public void setMainApp(MainApp mainApp)
 	{
 		this.mainApp = mainApp;
+		cmbTerm.getItems().add((Integer)15);
+		cmbTerm.getItems().add((Integer)30);
 	}
 	
 	@FXML
@@ -78,7 +75,7 @@ public class MortgageController
 		lq.setIncome(Double.parseDouble(txtIncome.getText()));
 		lq.setExpenses(Double.parseDouble(txtExpenses.getText()));
 		lq.setiCreditScore(Integer.parseInt(txtCreditScore.getText()));
-		lq.setiTerm(Integer.parseInt(cbTerm.getSelectionModel().getSelectedItem().toString()));
+		lq.setiTerm(Integer.parseInt(cmbTerm.getSelectionModel().getSelectedItem().toString()));
 		
 		a.setLoanRequest(lq);
 
@@ -90,10 +87,13 @@ public class MortgageController
 	{
 		double specificRate = lRequest.getdRate();
 		double pmt = Math.abs(lRequest.getdPayment());
+		double maximumpmt1 = .28 * lRequest.getIncome();
+		double maxpmt2 = .36 * lRequest.getIncome()-lRequest.getExpenses();
+		double maxPmt = Math.min(maximumpmt1, maxpmt2);
 		String pmtString = String.format("%1$,.2f", Math.abs(lRequest.getdPayment()));
-		MortgagePayment.setText(pmtString);
+		lblMortgagePayment.setText(pmtString);
 		
 		String rateString = String.format("%1$,.2f", Math.abs(lRequest.getdRate()));
-		MortgagePayment.setText(Double.toString(specificRate));
+		lblMortgagePayment.setText(Double.toString(specificRate));
 	}
 }
